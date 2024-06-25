@@ -1,3 +1,24 @@
 {
-  "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular/standalone"]
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@ionic/angular/common",
+    "@ionic/angular/standalone"
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#a537e5",
+    "activityBar.background": "#a537e5",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#a537e5",
+    "statusBar.background": "#a537e5",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#b964eb",
+    "statusBarItem.remoteBackground": "#a537e5",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#a537e5",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#a537e599",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#a537e5"
 }
