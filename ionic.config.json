@@ -1,0 +1,7 @@
+{
+  "name": "PteroApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
