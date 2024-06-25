@@ -1,15 +1,27 @@
 {
   "name": "net.zlyfer.pteroapp",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Frederik 'zlyfer' Shull",
+  "homepage": "https://zlyfer.net",
+  "description": "A Pterodactyl Panel App",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "start": "npm run preBuild && ionic serve --no-open --configuration=development",
+    "run-android": "ionic serve --no-open --configuration=app",
+    "run-android_": "ionic cap run android -l --external --configuration=app",
+    "run-ios": "ionic cap run ios -l --external --configuration=app",
+    "run-freddy": "ionic cap run android -l --external --public-host=192.168.178.25 --target=2748e267 --configuration=app",
+    "build-website": "npm run preBuild && npx ionic build --configuration=production && npx cap copy",
+    "build-android": "npm run preBuild && npx ionic build --configuration=app.production && npx cap copy",
+    "build-android_": "ionic build --configuration=app.production && ionic cap build android",
+    "build-ios": "ionic build --configuration=app.production && ionic cap build ios",
+    "generate-assets": "npx @capacitor/assets generate --android",
+    "generate-assets_": "npx cordova-res --skip-config --copy",
+    "buildWithTag": "node buildWithTag.js",
+    "preBuild": "node preBuild.js",
+    "eslint": "npx eslint src/app",
+    "eslint-quiet": "npx eslint --quiet src/app",
+    "eslint-fix": "npx eslint --fix src/app",
+    "eslint-quiet-fix": "npx eslint --quiet --fix src/app"
   },
   "private": true,
   "dependencies": {
@@ -61,7 +73,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.0"
   },
-  "description": "An Ionic project",
   "browserslist": [
     "Chrome >=79",
     "ChromeAndroid >=79",
