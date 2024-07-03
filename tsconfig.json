@@ -19,6 +19,13 @@
     "target": "es2022",
     "module": "es2020",
     "lib": ["es2018", "dom"],
+    "paths": {
+      "@service/*": ["src/app/services/*"],
+      // "@modal/*": ["src/app/modals/*"],
+      // "@popover/*": ["src/app/popovers/*"],
+      "@pipe/*": ["src/app/pipes/*"],
+      "@asset/*": ["src/assets/*"]
+    },
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

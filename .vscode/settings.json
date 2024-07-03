@@ -20,5 +20,6 @@
     "titleBar.inactiveBackground": "#a537e599",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#a537e5"
+  "peacock.color": "#a537e5",
+  "angular.log": "verbose"
 }

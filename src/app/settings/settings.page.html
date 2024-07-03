@@ -1,0 +1,23 @@
+<ion-header fullscreen>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list>
+    <ion-item lines="full">
+      <ion-input label="API Endpoint" placeholder="https://pterodactyl.your-domain.com" [(ngModel)]="apiUrl"
+        (ngModelChange)="updateCredentials()"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-input label="API Key" placeholder="ptlc_xxxxxxxx" [(ngModel)]="apiKey"
+        (ngModelChange)="updateCredentials()"></ion-input>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

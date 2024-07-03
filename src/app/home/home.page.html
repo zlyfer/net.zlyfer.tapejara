@@ -1,7 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>
-      PteroApp
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,4 +16,32 @@
     </ion-toolbar>
   </ion-header>
 
+  <ng-container *ngIf="!contentLoading">
+
+    <ion-select id="serverSelect" label="Select a server:" placeholder="No server selected" [(ngModel)]="serverID"
+      (ionChange)="onServerSelect()">
+      <ion-select-option *ngFor="let server of servers"
+        [value]="server.attributes.identifier">{{ server.attributes.name }}</ion-select-option>
+    </ion-select>
+
+    <ion-breadcrumbs color="primary">
+      <ion-breadcrumb *ngFor="let folder of getPathList()" (click)="onDirectorySelect(folder.path)">
+        {{ folder.label }}
+      </ion-breadcrumb>
+    </ion-breadcrumbs>
+
+    <ion-list>
+      <ion-item *ngFor="let directory of directories; let last = last" [lines]="last ? 'none' : 'full'"
+        (click)="onDirectorySelect(directory.attributes.name, true)">
+        <ion-icon *ngIf="directory.attributes.is_file" color="medium" slot="start" name="document-outline"></ion-icon>
+        <ion-icon *ngIf="!directory.attributes.is_file" color="medium" slot="start" name="folder-outline"></ion-icon>
+
+        <ion-label class="fileName">{{ directory.attributes.name }}</ion-label>
+        <ion-label *ngIf="directory.attributes.is_file" class="fileSize"
+          slot="end">{{ directory.attributes.size | zfilesize }}</ion-label>
+        <ion-label class="fileModified" slot="end">{{ directory.attributes.modified_at | zdate }}</ion-label>
+      </ion-item>
+    </ion-list>
+
+  </ng-container>
 </ion-content>

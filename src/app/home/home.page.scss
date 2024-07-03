@@ -1,0 +1,23 @@
+#serverSelect {
+  width: 60%;
+  margin: 10px auto;
+  padding: 10px;
+  border: 2px solid var(--ion-color-primary);
+  border-radius: 25px;
+}
+
+ion-item,
+ion-breadcrumb {
+  cursor: pointer;
+}
+
+.fileName {
+  --color: var(--ion-color-secondary);
+}
+
+.fileSize {
+  width: 150px;
+}
+.fileModified {
+  width: 230px;
+}
