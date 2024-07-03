@@ -31,17 +31,24 @@
     </ion-breadcrumbs>
 
     <ion-list>
-      <ion-item *ngFor="let directory of directories; let last = last" [lines]="last ? 'none' : 'full'"
-        (click)="onDirectorySelect(directory.attributes.name, true)">
-        <ion-icon *ngIf="directory.attributes.is_file" color="medium" slot="start" name="document-outline"></ion-icon>
-        <ion-icon *ngIf="!directory.attributes.is_file" color="medium" slot="start" name="folder-outline"></ion-icon>
+      <div *ngFor="let entry of fileList; let last = last">
+        <!-- ----------- Folder ------------ -->
+        <ion-item *ngIf="!entry.attributes.is_file" [lines]="last ? 'none' : 'full'"
+          (click)="onDirectorySelect(entry, true)">
+          <fa-icon class="folder" [icon]="fileIconService.getFolderIcon()"></fa-icon>
+          <ion-label class="fileName">{{ entry.attributes.name }}</ion-label>
+        </ion-item>
 
-        <ion-label class="fileName">{{ directory.attributes.name }}</ion-label>
-        <ion-label *ngIf="directory.attributes.is_file" class="fileSize"
-          slot="end">{{ directory.attributes.size | zfilesize }}</ion-label>
-        <ion-label class="fileModified" slot="end">{{ directory.attributes.modified_at | zdate }}</ion-label>
-      </ion-item>
+        <!-- ------------ File ------------- -->
+        <ion-item *ngIf="entry.attributes.is_file" [lines]="last ? 'none' : 'full'" (click)="onFileSelect(entry)">
+          <fa-icon class="file" [icon]="getIcon(entry.attributes.name)"></fa-icon>
+
+          <ion-label class="fileName">{{ entry.attributes.name }}</ion-label>
+          <ion-label class="fileSize" slot="end">{{ entry.attributes.size | zfilesize }}</ion-label>
+          <ion-label class="fileModified" slot="end">{{ entry.attributes.modified_at | zdate }}</ion-label>
+        </ion-item>
+
+      </div>
     </ion-list>
-
   </ng-container>
 </ion-content>

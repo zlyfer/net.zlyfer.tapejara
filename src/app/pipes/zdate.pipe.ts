@@ -49,7 +49,7 @@ export class zDatePipe implements PipeTransform {
       const formattedHours = hours % 12 || 12;
 
       const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-      return `${month} ${day}${daySuffix}, ${year}, ${formattedHours}:${formattedMinutes}${ampm}`;
+      return `${month} ${day}${daySuffix} ${formattedHours}:${formattedMinutes}${ampm}`;
     }
   }
 

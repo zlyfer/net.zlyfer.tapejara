@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PterodactylApiService } from '@service/pterodactyl-api.service';
+import { FileIconService } from '@service/file-icons.service';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -8,14 +10,17 @@ import { PterodactylApiService } from '@service/pterodactyl-api.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  constructor(private pteroApi: PterodactylApiService) {}
+  constructor(
+    private pteroApi: PterodactylApiService,
+    public fileIconService: FileIconService
+  ) {}
 
   public contentLoading = true;
 
   public servers: any = [];
   public serverID: string = '';
 
-  public directories: any = [];
+  public fileList: any = [];
   public directoryPath = '';
 
   ngOnInit() {
@@ -46,8 +51,8 @@ export class HomePage implements OnInit {
     this.pteroApi
       .listDirectory(this.serverID, this.directoryPath)
       .subscribe((data: any) => {
-        let directories = data.data;
-        directories = directories.sort((a: any, b: any) => {
+        let fileList = data.data;
+        fileList = fileList.sort((a: any, b: any) => {
           if (a.attributes.is_file && !b.attributes.is_file) {
             return 1;
           }
@@ -56,17 +61,28 @@ export class HomePage implements OnInit {
           }
           return a.attributes.name.localeCompare(b.attributes.name);
         });
-        this.directories = directories;
+        this.fileList = fileList;
       });
   }
 
-  onDirectorySelect(directory: string, addToPath: boolean = false) {
-    if (addToPath) {
-      this.directoryPath += `/${directory}`;
+  onDirectorySelect(directory: any, addToPath: boolean = false) {
+    let dirName = '';
+    if (typeof directory === 'string') {
+      dirName = directory;
     } else {
-      this.directoryPath = directory;
+      dirName = directory.attributes.name;
+    }
+
+    if (addToPath) {
+      this.directoryPath += `/${dirName}`;
+    } else {
+      this.directoryPath = dirName;
     }
     this.listDirectory();
+  }
+
+  onFileSelect(file: any) {
+    console.debug(`file:`, file);
   }
 
   getPathList() {
@@ -84,5 +100,9 @@ export class HomePage implements OnInit {
       pathList.push({ label, path });
     });
     return pathList;
+  }
+
+  getIcon(extension: string): IconDefinition {
+    return this.fileIconService.getFileIcon(extension);
   }
 }
