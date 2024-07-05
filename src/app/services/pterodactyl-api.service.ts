@@ -31,7 +31,7 @@ export class PterodactylApiService {
   /*               SERVER               */
   /* ---------------------------------- */
 
-  listServers() {
+  loadServers() {
     if (!this.checkAPICredentials()) return new Observable();
 
     return this.http.get(`${this.apiUrl}`, {
@@ -43,7 +43,7 @@ export class PterodactylApiService {
     });
   }
 
-  listDirectory(serverID: string, directory: string = '') {
+  loadDirectory(serverID: string, directory: string = '') {
     if (!this.checkAPICredentials()) return new Observable();
 
     directory = directory.replace(/\//g, '%2F');

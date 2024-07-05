@@ -13,7 +13,7 @@ import { PipesModule } from '@pipe/pipes.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot({ mode: 'ios' }),
+    IonicModule.forRoot(),
     AppRoutingModule,
     PipesModule,
   ],

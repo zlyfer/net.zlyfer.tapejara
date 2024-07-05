@@ -10,13 +10,17 @@
 <ion-content fullscreen>
 
   <ion-list>
+    <ion-list-header>
+      <ion-label>Pterodactyl Credentials</ion-label>
+    </ion-list-header>
     <ion-item lines="full">
-      <ion-input label="API Endpoint" placeholder="https://pterodactyl.your-domain.com" [(ngModel)]="apiUrl"
+      <ion-input label="API Endpoint" labelPlacement="floating" color="primary"
+        placeholder="https://pterodactyl.your-domain.com" [(ngModel)]="apiUrl"
         (ngModelChange)="updateCredentials()"></ion-input>
     </ion-item>
     <ion-item lines="none">
-      <ion-input label="API Key" placeholder="ptlc_xxxxxxxx" [(ngModel)]="apiKey"
-        (ngModelChange)="updateCredentials()"></ion-input>
+      <ion-input label="API Key" labelPlacement="floating" color="primary" placeholder="ptlc_xxxxxxxx"
+        [(ngModel)]="apiKey" (ngModelChange)="updateCredentials()"></ion-input>
     </ion-item>
   </ion-list>
 

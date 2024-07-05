@@ -1,0 +1,37 @@
+ion-item,
+ion-breadcrumb {
+  cursor: pointer;
+}
+
+.fileName {
+  --color: var(--ion-color-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.fileSize {
+  width: 100px;
+  margin-right: 20px;
+  text-align: right;
+}
+.fileModified {
+  width: 130px;
+  text-align: right;
+}
+
+ion-item {
+  display: flex;
+  align-items: center;
+}
+
+fa-icon {
+  font-size: 25px;
+}
+fa-icon.folder {
+  margin: 0 10px 0 0px;
+}
+fa-icon.file {
+  margin: 0 12px 0 2px;
+}

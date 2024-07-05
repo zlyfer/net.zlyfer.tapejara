@@ -3,52 +3,32 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title *ngIf="!contentLoading">{{ getCurrentServer().attributes.name }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary">Change Server</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">PteroApp</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ng-container *ngIf="!contentLoading">
-
+<!-- <ng-container *ngIf="!contentLoading">
     <ion-select id="serverSelect" label="Select a server:" placeholder="No server selected" [(ngModel)]="serverID"
       (ionChange)="onServerSelect()">
       <ion-select-option *ngFor="let server of servers"
         [value]="server.attributes.identifier">{{ server.attributes.name }}</ion-select-option>
     </ion-select>
+  </ng-container> -->
 
-    <ion-breadcrumbs color="primary">
-      <ion-breadcrumb *ngFor="let folder of getPathList()" (click)="onDirectorySelect(folder.path)">
-        {{ folder.label }}
-      </ion-breadcrumb>
-    </ion-breadcrumbs>
-
-    <ion-list>
-      <div *ngFor="let entry of fileList; let last = last">
-        <!-- ----------- Folder ------------ -->
-        <ion-item *ngIf="!entry.attributes.is_file" [lines]="last ? 'none' : 'full'"
-          (click)="onDirectorySelect(entry, true)">
-          <fa-icon class="folder" [icon]="fileIconService.getFolderIcon()"></fa-icon>
-          <ion-label class="fileName">{{ entry.attributes.name }}</ion-label>
-        </ion-item>
-
-        <!-- ------------ File ------------- -->
-        <ion-item *ngIf="entry.attributes.is_file" [lines]="last ? 'none' : 'full'" (click)="onFileSelect(entry)">
-          <fa-icon class="file" [icon]="getIcon(entry.attributes.name)"></fa-icon>
-
-          <ion-label class="fileName">{{ entry.attributes.name }}</ion-label>
-          <ion-label class="fileSize" slot="end">{{ entry.attributes.size | zfilesize }}</ion-label>
-          <ion-label class="fileModified" slot="end">{{ entry.attributes.modified_at | zdate }}</ion-label>
-        </ion-item>
-
-      </div>
-    </ion-list>
-  </ng-container>
+<ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="console">
+        <ion-icon name="terminal"></ion-icon>
+        Console
+      </ion-tab-button>
+      <ion-tab-button tab="file-explorer">
+        <ion-icon name="folder"></ion-icon>
+        File Browser
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>

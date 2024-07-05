@@ -6,6 +6,15 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
+    children: [
+      {
+        path: 'file-explorer',
+        loadChildren: () =>
+          import('../file-explorer/file-explorer.module').then(
+            (m) => m.FileExplorerModule
+          ),
+      },
+    ],
   },
 ];
 
