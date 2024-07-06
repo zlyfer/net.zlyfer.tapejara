@@ -1,11 +1,13 @@
-<ion-header [translucent]="true">
+<ion-header translucent>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title *ngIf="!contentLoading">{{ getCurrentServer().attributes.name }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button color="primary">Change Server</ion-button>
+      <ion-button shape="round" color="primary" (click)="openChangeServerModal()">
+        <ion-icon name="server"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -19,7 +21,7 @@
   </ng-container> -->
 
 <ion-content>
-  <ion-tabs>
+  <ion-tabs (ionTabsWillChange)="onTabChange($event)">
     <ion-tab-bar slot="bottom">
       <ion-tab-button tab="console">
         <ion-icon name="terminal"></ion-icon>

@@ -1,8 +1,10 @@
-<ion-content [fullscreen]="true">
-  <ion-breadcrumbs color="primary">
+<ion-content fullscreen>
+  <ion-breadcrumbs mode="ios" color="primary">
     <ion-breadcrumb *ngFor="let folder of getPathList()" (click)="onDirectorySelect(folder.path)">
       {{ folder.label }}
     </ion-breadcrumb>
+    <zspinner *ngIf="dirLoading"></zspinner>
+    <ion-icon id="dirLoadingDone" color="primary" *ngIf="!dirLoading" name="checkmark-circle"></ion-icon>
   </ion-breadcrumbs>
 
   <ion-list>

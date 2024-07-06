@@ -4,6 +4,7 @@ import { FileIconService } from '@service/file-icons.service';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { PterodactylApiService } from '@service/pterodactyl-api.service';
+import { SignalHomeService } from '@service/signals/home.service';
 
 @Component({
   selector: 'app-file-explorer',
@@ -13,42 +14,22 @@ import { PterodactylApiService } from '@service/pterodactyl-api.service';
 export class FileExplorerPage implements OnInit {
   constructor(
     private pteroApi: PterodactylApiService,
-    public fileIconService: FileIconService
+    public fileIconService: FileIconService,
+    private signalHomeService: SignalHomeService
   ) {}
 
   public serverID: string = '';
   public fileList: any = [];
   public directoryPath = '';
+  public dirLoading: boolean = true;
 
   ngOnInit() {
-    if (localStorage.getItem('serverID')) {
-      this.serverID = localStorage.getItem('serverID') || '';
-      this.onServerSelect();
-    }
-  }
-
-  onServerSelect() {
-    localStorage.setItem('serverID', this.serverID);
-    this.directoryPath = '';
-    this.loadDirectory();
-  }
-
-  loadDirectory() {
-    this.pteroApi
-      .loadDirectory(this.serverID, this.directoryPath)
-      .subscribe((data: any) => {
-        let fileList = data.data;
-        fileList = fileList.sort((a: any, b: any) => {
-          if (a.attributes.is_file && !b.attributes.is_file) {
-            return 1;
-          }
-          if (!a.attributes.is_file && b.attributes.is_file) {
-            return -1;
-          }
-          return a.attributes.name.localeCompare(b.attributes.name);
-        });
-        this.fileList = fileList;
-      });
+    this.signalHomeService.selectedServer$.subscribe((data) => {
+      if (data) {
+        this.serverID = data;
+        this.loadDirectory();
+      }
+    });
   }
 
   onDirectorySelect(directory: any, addToPath: boolean = false) {
@@ -59,12 +40,32 @@ export class FileExplorerPage implements OnInit {
       dirName = directory.attributes.name;
     }
 
+    let newPath = this.directoryPath;
     if (addToPath) {
-      this.directoryPath += `/${dirName}`;
+      newPath += `/${dirName}`;
     } else {
-      this.directoryPath = dirName;
+      newPath = dirName;
     }
-    this.loadDirectory();
+    this.loadDirectory(newPath);
+  }
+
+  loadDirectory(path: string = '') {
+    this.dirLoading = true;
+    this.pteroApi.loadDirectory(this.serverID, path).subscribe((data: any) => {
+      let fileList = data.data;
+      fileList = fileList.sort((a: any, b: any) => {
+        if (a.attributes.is_file && !b.attributes.is_file) {
+          return 1;
+        }
+        if (!a.attributes.is_file && b.attributes.is_file) {
+          return -1;
+        }
+        return a.attributes.name.localeCompare(b.attributes.name);
+      });
+      this.fileList = fileList;
+      this.directoryPath = path;
+      this.dirLoading = false;
+    });
   }
 
   onFileSelect(file: any) {

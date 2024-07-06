@@ -9,8 +9,10 @@ import { AppComponent } from './app.component';
 
 import { PipesModule } from '@pipe/pipes.module';
 
+import { ServerSelectPage } from './modals/serverselect/serverselect.page';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ServerSelectPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

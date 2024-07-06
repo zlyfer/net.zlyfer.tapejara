@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">PteroApp</string>
-    <string name="title_activity_main">PteroApp</string>
-    <string name="package_name">net.zlyfer.pteroapp</string>
-    <string name="custom_url_scheme">net.zlyfer.pteroapp</string>
+    <string name="app_name">Tapejara</string>
+    <string name="title_activity_main">Tapejara</string>
+    <string name="package_name">net.zlyfer.tapejara</string>
+    <string name="custom_url_scheme">net.zlyfer.tapejara</string>
 </resources>

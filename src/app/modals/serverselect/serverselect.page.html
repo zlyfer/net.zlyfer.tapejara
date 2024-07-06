@@ -1,0 +1,21 @@
+<ion-header fullscreen>
+  <ion-toolbar>
+    <ion-title>Select a Server</ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" color="primary" (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item (click)="selectServer(server.attributes.identifier)" *ngFor="let server of servers; let last = last"
+      [lines]="last ? 'full' : 'full'" [class.selected]="server.attributes.identifier === selectedServer" detail button>
+      <ion-label>
+        {{ server.attributes.name }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

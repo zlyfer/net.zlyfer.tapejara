@@ -8,9 +8,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FileExplorerPage } from './file-explorer.page';
 import { FileExplorerPageRoutingModule } from './file-explorer-routing.module';
 import { PipesModule } from '@pipe/pipes.module';
+import { ZSpinnerComponent } from '@component/zspinner/zspinner.component';
 
 @NgModule({
-  declarations: [FileExplorerPage],
+  declarations: [FileExplorerPage, ZSpinnerComponent],
   imports: [
     CommonModule,
     FormsModule,

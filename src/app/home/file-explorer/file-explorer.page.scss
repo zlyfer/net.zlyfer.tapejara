@@ -1,3 +1,6 @@
+ion-breadcrumbs {
+  padding-left: 35px;
+}
 ion-item,
 ion-breadcrumb {
   cursor: pointer;
@@ -34,4 +37,15 @@ fa-icon.folder {
 }
 fa-icon.file {
   margin: 0 12px 0 2px;
+}
+
+zspinner {
+  position: absolute;
+  left: 8px;
+}
+#dirLoadingDone {
+  position: absolute;
+  left: 10px;
+  width: 26px;
+  height: 26px;
 }

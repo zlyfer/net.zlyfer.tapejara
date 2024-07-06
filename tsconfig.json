@@ -23,6 +23,7 @@
       "@service/*": ["src/app/services/*"],
       // "@modal/*": ["src/app/modals/*"],
       // "@popover/*": ["src/app/popovers/*"],
+      "@component/*": ["src/app/components/*"],
       "@pipe/*": ["src/app/pipes/*"],
       "@asset/*": ["src/assets/*"]
     },

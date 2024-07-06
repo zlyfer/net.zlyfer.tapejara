@@ -1,4 +1,4 @@
-package net.zlyfer.pteroapp;
+package net.zlyfer.tapejara;
 
 import com.getcapacitor.BridgeActivity;
 

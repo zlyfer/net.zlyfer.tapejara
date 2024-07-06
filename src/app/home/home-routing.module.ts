@@ -8,11 +8,21 @@ const routes: Routes = [
     component: HomePage,
     children: [
       {
+        path: 'console',
+        loadChildren: () =>
+          import('./console/console.module').then((m) => m.ConsoleModule),
+      },
+      {
         path: 'file-explorer',
         loadChildren: () =>
-          import('../file-explorer/file-explorer.module').then(
+          import('./file-explorer/file-explorer.module').then(
             (m) => m.FileExplorerModule
           ),
+      },
+      {
+        path: '',
+        redirectTo: 'console',
+        pathMatch: 'full',
       },
     ],
   },
