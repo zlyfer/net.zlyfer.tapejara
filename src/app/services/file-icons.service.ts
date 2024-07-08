@@ -9,11 +9,11 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 export class FileIconService {
   constructor() {}
 
-  public getFolderIcon() {
+  public getFolderIcon(): any {
     return far['faFolder'];
   }
 
-  public getFileIcon(filename: string) {
+  public getFileIcon(filename: string): any {
     const extension: any = filename.split('.').pop();
 
     switch (extension.toLowerCase()) {

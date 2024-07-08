@@ -10,7 +10,7 @@ export class WebSocketService {
   private wsSocket: any;
   public message$ = new Subject<any>();
 
-  public connectSocket(socketUrl: string, token: string) {
+  public connectSocket(socketUrl: string, token: string): void {
     const fullUrl = `${socketUrl}?token=${token}`;
 
     this.wsSocket = new WebSocket(fullUrl);
@@ -32,7 +32,7 @@ export class WebSocketService {
     };
   }
 
-  public sendMessage(message: string) {
+  public sendMessage(message: string): void {
     if (this.wsSocket && this.wsSocket.readyState === WebSocket.OPEN) {
       this.wsSocket.send(message);
     } else {
@@ -43,13 +43,13 @@ export class WebSocketService {
     }
   }
 
-  public closeSocket() {
+  public closeSocket(): void {
     if (this.wsSocket) {
       this.wsSocket.close();
     }
   }
 
-  private sendAuthMessage(token: string) {
+  private sendAuthMessage(token: string): void {
     if (this.wsSocket && this.wsSocket.readyState === WebSocket.OPEN) {
       const authMessage = `{"event":"auth","args":["${token}"]}`;
       this.wsSocket.send(authMessage);
@@ -58,7 +58,7 @@ export class WebSocketService {
     }
   }
 
-  private handleMessage(_message: string) {
+  private handleMessage(_message: string): void {
     const message = JSON.parse(_message);
     console.debug(`message:`, message);
     this.message$.next(message);

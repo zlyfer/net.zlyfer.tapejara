@@ -35,7 +35,7 @@ export class ConsolePage implements OnInit {
 
   /* ------------ Websocket ----------- */
 
-  private ws_connectSocket() {
+  private ws_connectSocket(): void {
     this.pteroApi.getSocket(this.serverID).subscribe((data: any) => {
       this.webSocketService.connectSocket(data.data.socket, data.data.token);
       if (this.subscription) {
@@ -51,7 +51,7 @@ export class ConsolePage implements OnInit {
 
   /* -------------- Other ------------- */
 
-  public sendCommand(event: any) {
+  public sendCommand(event: any): void {
     const command = event.target.value;
     const message = {
       event: 'send command',
@@ -61,7 +61,7 @@ export class ConsolePage implements OnInit {
     this.console_command = '';
   }
 
-  public handleMessage(message: any) {
+  public handleMessage(message: any): void {
     const event = message.event;
     switch (event) {
       case 'console output':
@@ -83,13 +83,24 @@ export class ConsolePage implements OnInit {
     }
   }
 
-  public addMessageToConsole(message: string) {
+  public addMessageToConsole(message: string): void {
     const span = this.renderer.createElement('span');
     const text = this.renderer.createText(message);
     this.renderer.appendChild(span, text);
     this.renderer.addClass(span, 'message');
     this.renderer.appendChild(this.console.nativeElement, span);
+    this.scrollBottom();
+  }
+
+  public scrollBottom() {
     this.console.nativeElement.scrollTop =
       this.console.nativeElement.scrollHeight;
+  }
+  public canScrollDown(): boolean {
+    return (
+      this.console.nativeElement.scrollTop <
+      this.console.nativeElement.scrollHeight -
+        this.console.nativeElement.clientHeight
+    );
   }
 }

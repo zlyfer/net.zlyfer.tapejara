@@ -73,7 +73,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  public loadServers() {
+  public loadServers(): void {
     this.contentLoading = true;
     this.pteroApi.loadServers().subscribe((data: any) => {
       this.servers = data.data;
@@ -81,11 +81,11 @@ export class HomePage implements OnInit {
     });
   }
 
-  public onTabChange(event: { tab: string }) {
+  public onTabChange(event: { tab: string }): void {
     localStorage.setItem('selectedTab', event.tab);
   }
 
-  public openChangeServerModal() {
+  public openChangeServerModal(): void {
     this.modalController
       .create({
         component: ServerSelectPage,
@@ -109,11 +109,11 @@ export class HomePage implements OnInit {
       });
   }
 
-  public onServerSelect() {
+  public onServerSelect(): void {
     localStorage.setItem('serverID', this.serverID);
   }
 
-  public getCurrentServer() {
+  public getCurrentServer(): any {
     return this.servers.find(
       (server: any) => server.attributes.identifier === this.serverID
     );

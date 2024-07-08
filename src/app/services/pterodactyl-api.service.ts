@@ -18,7 +18,7 @@ export class PterodactylApiService {
   /*                MISC                */
   /* ---------------------------------- */
 
-  public checkAPICredentials() {
+  public checkAPICredentials(): boolean {
     if (this.apiUrl && this.apiKey) {
       return true;
     } else {
@@ -31,7 +31,7 @@ export class PterodactylApiService {
   /*               SERVER               */
   /* ---------------------------------- */
 
-  public loadServers() {
+  public loadServers(): Observable<any> {
     if (!this.checkAPICredentials()) return new Observable();
 
     return this.http.get(`${this.apiUrl}`, {
@@ -43,7 +43,10 @@ export class PterodactylApiService {
     });
   }
 
-  public loadDirectory(serverID: string, directory: string = '') {
+  public loadDirectory(
+    serverID: string,
+    directory: string = ''
+  ): Observable<any> {
     if (!this.checkAPICredentials()) return new Observable();
 
     directory = directory.replace(/\//g, '%2F');
@@ -64,7 +67,7 @@ export class PterodactylApiService {
   /*              WEBSOCKET             */
   /* ---------------------------------- */
 
-  public getSocket(serverID: string) {
+  public getSocket(serverID: string): Observable<any> {
     if (!this.checkAPICredentials()) return new Observable();
 
     return this.http.get(`${this.apiUrl}/servers/${serverID}/websocket`, {

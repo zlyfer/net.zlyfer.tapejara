@@ -13,6 +13,35 @@
     width: 100%;
     height: calc(100% - 50px);
 
+    & #scrollBottom {
+      position: fixed;
+      bottom: 80px;
+      right: 30px;
+      float: right;
+      width: 40px;
+      aspect-ratio: 1;
+      background-color: #30353d;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+
+      &:hover {
+        background-color: #3d414a;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      & ion-icon {
+        width: 40px;
+        aspect-ratio: 1;
+        height: 36px;
+        position: absolute;
+        top: 3px;
+      }
+    }
+
     & .message {
       display: block;
       word-wrap: break-word;

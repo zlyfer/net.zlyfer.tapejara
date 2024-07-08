@@ -14,11 +14,11 @@ export class ServerSelectPage implements OnInit {
 
   ngOnInit() {}
 
-  public selectServer(serverID: string = '') {
+  public selectServer(serverID: string = ''): void {
     this.modalController.dismiss(serverID);
   }
 
-  public dismiss() {
+  public dismiss(): void {
     this.modalController.dismiss();
   }
 }

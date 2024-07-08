@@ -16,7 +16,7 @@ export class SettingsPage implements OnInit {
     this.apiKey = localStorage.getItem('apiKey') || '';
   }
 
-  updateCredentials() {
+  updateCredentials(): void {
     localStorage.setItem('apiUrl', this.apiUrl);
     localStorage.setItem('apiKey', this.apiKey);
   }
