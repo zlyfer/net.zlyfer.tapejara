@@ -93,8 +93,10 @@ export class ConsolePage implements OnInit {
   }
 
   public scrollBottom() {
-    this.console.nativeElement.scrollTop =
-      this.console.nativeElement.scrollHeight;
+    this.console.nativeElement.scrollTo({
+      top: this.console.nativeElement.scrollHeight,
+      behavior: 'smooth',
+    });
   }
   public canScrollDown(): boolean {
     return (
