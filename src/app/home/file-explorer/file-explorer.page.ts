@@ -32,7 +32,7 @@ export class FileExplorerPage implements OnInit {
     });
   }
 
-  onDirectorySelect(directory: any, addToPath: boolean = false) {
+  public onDirectorySelect(directory: any, addToPath: boolean = false) {
     let dirName = '';
     if (typeof directory === 'string') {
       dirName = directory;
@@ -49,7 +49,7 @@ export class FileExplorerPage implements OnInit {
     this.loadDirectory(newPath);
   }
 
-  loadDirectory(path: string = '') {
+  public loadDirectory(path: string = '') {
     this.dirLoading = true;
     this.pteroApi.loadDirectory(this.serverID, path).subscribe((data: any) => {
       let fileList = data.data;
@@ -68,11 +68,11 @@ export class FileExplorerPage implements OnInit {
     });
   }
 
-  onFileSelect(file: any) {
+  public onFileSelect(file: any) {
     console.debug(`file:`, file);
   }
 
-  getPathList() {
+  public getPathList() {
     const pathList: any = [];
     const pathArray = this.directoryPath.split('/');
     let path = '';
@@ -89,7 +89,7 @@ export class FileExplorerPage implements OnInit {
     return pathList;
   }
 
-  getIcon(extension: string): IconDefinition {
+  public getIcon(extension: string): IconDefinition {
     return this.fileIconService.getFileIcon(extension);
   }
 }

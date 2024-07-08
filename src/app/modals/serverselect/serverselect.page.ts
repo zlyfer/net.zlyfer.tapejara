@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -15,11 +14,11 @@ export class ServerSelectPage implements OnInit {
 
   ngOnInit() {}
 
-  selectServer(serverID: string = '') {
+  public selectServer(serverID: string = '') {
     this.modalController.dismiss(serverID);
   }
 
-  dismiss() {
+  public dismiss() {
     this.modalController.dismiss();
   }
 }

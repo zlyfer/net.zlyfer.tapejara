@@ -5,10 +5,12 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class WebSocketService {
+  constructor() {}
+
   private wsSocket: any;
   public message$ = new Subject<any>();
 
-  connectSocket(socketUrl: string, token: string) {
+  public connectSocket(socketUrl: string, token: string) {
     const fullUrl = `${socketUrl}?token=${token}`;
 
     this.wsSocket = new WebSocket(fullUrl);
@@ -30,20 +32,7 @@ export class WebSocketService {
     };
   }
 
-  private async sendAuthMessage(token: string) {
-    if (this.wsSocket && this.wsSocket.readyState === WebSocket.OPEN) {
-      const authMessage = `{"event":"auth","args":["${token}"]}`;
-      this.wsSocket.send(authMessage);
-    } else {
-      console.error('WebSocket is not open. Cannot send auth message.');
-    }
-  }
-
-  private handleMessage(message: string) {
-    this.message$.next(JSON.parse(message));
-  }
-
-  sendMessage(message: string) {
+  public sendMessage(message: string) {
     if (this.wsSocket && this.wsSocket.readyState === WebSocket.OPEN) {
       this.wsSocket.send(message);
     } else {
@@ -54,9 +43,24 @@ export class WebSocketService {
     }
   }
 
-  closeSocket() {
+  public closeSocket() {
     if (this.wsSocket) {
       this.wsSocket.close();
     }
+  }
+
+  private sendAuthMessage(token: string) {
+    if (this.wsSocket && this.wsSocket.readyState === WebSocket.OPEN) {
+      const authMessage = `{"event":"auth","args":["${token}"]}`;
+      this.wsSocket.send(authMessage);
+    } else {
+      console.error('WebSocket is not open. Cannot send auth message.');
+    }
+  }
+
+  private handleMessage(_message: string) {
+    const message = JSON.parse(_message);
+    console.debug(`message:`, message);
+    this.message$.next(message);
   }
 }

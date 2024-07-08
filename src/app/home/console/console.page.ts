@@ -35,7 +35,7 @@ export class ConsolePage implements OnInit {
 
   /* ------------ Websocket ----------- */
 
-  ws_connectSocket() {
+  private ws_connectSocket() {
     this.pteroApi.getSocket(this.serverID).subscribe((data: any) => {
       this.webSocketService.connectSocket(data.data.socket, data.data.token);
       if (this.subscription) {
@@ -49,50 +49,41 @@ export class ConsolePage implements OnInit {
     });
   }
 
-  ws_sendMessage(message: string) {
-    this.webSocketService.sendMessage(message);
-  }
-
-  // ws_closeConnection() {
-  //   this.webSocketService.closeSocket();
-  // }
-
   /* -------------- Other ------------- */
 
-  sendCommand(event: any) {
+  public sendCommand(event: any) {
     const command = event.target.value;
     const message = {
       event: 'send command',
       args: [command],
     };
-    this.ws_sendMessage(JSON.stringify(message));
+    this.webSocketService.sendMessage(JSON.stringify(message));
     this.console_command = '';
   }
 
-  handleMessage(message: any) {
+  public handleMessage(message: any) {
     const event = message.event;
     switch (event) {
-      case 'auth success':
-        break;
-      case 'status':
-        // Handled in home.page.ts
+      case 'console output':
+        const console_message = message.args[0];
+        this.addMessageToConsole(console_message);
         break;
       case 'stats':
         const stats = JSON.parse(message.args[0]);
-        // console.log('Stats:', stats);
         break;
-      case 'console output':
-        const console_message = message.args[0];
-        console.log('Console Output:', console_message);
-        this.addMessageToConsole(console_message);
+      case 'auth success':
+      case 'status':
+      case 'token expired':
+      case 'token expiring':
+        // INFO: Handled in home.page.ts
         break;
       default:
-        console.log('Unknown event:', event);
+        console.log('Unhandled event:', event);
         break;
     }
   }
 
-  addMessageToConsole(message: string) {
+  public addMessageToConsole(message: string) {
     const span = this.renderer.createElement('span');
     const text = this.renderer.createText(message);
     this.renderer.appendChild(span, text);

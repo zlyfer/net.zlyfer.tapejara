@@ -10,11 +10,11 @@ export class SignalHomeService {
 
   constructor() {}
 
-  setSelectedServer(data: any): void {
+  public setSelectedServer(data: any): void {
     this.serverObject.next(data);
   }
 
-  getSelectedServer(): any {
+  public getSelectedServer(): any {
     return this.serverObject.getValue();
   }
 }
