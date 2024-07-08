@@ -12,11 +12,6 @@ const routes: Routes = [
       import('./settings/settings.module').then((m) => m.SettingsModule),
   },
   {
-    path: 'login',
-    loadChildren: () =>
-      import('./login/login.module').then((m) => m.LoginModule),
-  },
-  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

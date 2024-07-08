@@ -59,4 +59,20 @@ export class PterodactylApiService {
       }
     );
   }
+
+  /* ---------------------------------- */
+  /*              WEBSOCKET             */
+  /* ---------------------------------- */
+
+  getSocket(serverID: string) {
+    if (!this.checkAPICredentials()) return new Observable();
+
+    return this.http.get(`${this.apiUrl}/servers/${serverID}/websocket`, {
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    });
+  }
 }

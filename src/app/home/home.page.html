@@ -3,12 +3,14 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title *ngIf="!contentLoading">{{ getCurrentServer().attributes.name }}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button shape="round" color="primary" (click)="openChangeServerModal()">
-        <ion-icon name="server"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title *ngIf="!contentLoading" (click)="openChangeServerModal()">
+      <span id="selectServer">
+        <!-- class equals serverStatus -->
+        <span id="serverStatus" [class.online]="serverStatus == 'running'"
+          [class.offline]="serverStatus == 'offline'"></span>
+        {{ getCurrentServer().attributes.name }}
+      </span>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 

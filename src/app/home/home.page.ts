@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { PterodactylApiService } from '@service/pterodactyl-api.service';
 import { ServerSelectPage } from '../modals/serverselect/serverselect.page';
 import { SignalHomeService } from '@service/signals/home.service';
+import { WebSocketService } from '@service/web-socket.service';
 
 @Component({
   selector: 'app-home',
@@ -16,12 +17,14 @@ export class HomePage implements OnInit {
     private pteroApi: PterodactylApiService,
     private router: Router,
     private modalController: ModalController,
-    private signalHomeService: SignalHomeService
+    private signalHomeService: SignalHomeService,
+    private webSocketService: WebSocketService
   ) {}
 
   public contentLoading = true;
   public servers: any = [];
   public serverID: string = '';
+  public serverStatus: string = '';
 
   ngOnInit() {
     this.loadServers();
@@ -34,6 +37,16 @@ export class HomePage implements OnInit {
     if (selectedTab) {
       this.router.navigate([`/home/${selectedTab}`]);
     }
+
+    this.webSocketService.message$.subscribe((message: any) => {
+      if (message.event == 'status') {
+        this.serverStatus = message.args[0];
+      }
+      if (message.event == 'stats') {
+        const stats = JSON.parse(message.args[0]);
+        this.serverStatus = stats.state;
+      }
+    });
   }
   loadServers() {
     this.contentLoading = true;
@@ -63,6 +76,7 @@ export class HomePage implements OnInit {
       })
       .then((data) => {
         if (data.data) {
+          this.webSocketService.closeSocket();
           this.serverID = data.data;
           this.onServerSelect();
           this.signalHomeService.setSelectedServer(data.data);
