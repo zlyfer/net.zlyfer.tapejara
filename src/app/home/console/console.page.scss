@@ -13,7 +13,7 @@
     width: 100%;
     height: calc(100% - 50px);
 
-    & #scrollBottom {
+    & #scrollBottomButton {
       position: fixed;
       bottom: 80px;
       right: 30px;
@@ -39,6 +39,7 @@
         height: 36px;
         position: absolute;
         top: 3px;
+        color: white;
       }
     }
 
@@ -47,6 +48,11 @@
       word-wrap: break-word;
       white-space: pre-wrap;
       margin-bottom: 5px;
+      color: #e0e4eb;
+    }
+
+    & .system-message {
+      color: #ef5350;
     }
   }
 

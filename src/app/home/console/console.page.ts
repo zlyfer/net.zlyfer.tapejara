@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewChild, Renderer2, ElementRef } from '@angular/core';
+import { ViewChild, Renderer2 } from '@angular/core';
 
 import { PterodactylApiService } from '@service/pterodactyl-api.service';
 import { SignalHomeService } from '@service/signals/home.service';
@@ -25,6 +25,7 @@ export class ConsolePage implements OnInit {
   public console_command: string = '';
 
   ngOnInit() {
+    console.debug(`ngOnInit`);
     this.signalHomeService.selectedServer$.subscribe((data) => {
       if (data) {
         this.serverID = data;
@@ -37,6 +38,8 @@ export class ConsolePage implements OnInit {
 
   private ws_connectSocket(): void {
     this.pteroApi.getSocket(this.serverID).subscribe((data: any) => {
+      this.clearConsole();
+      this.webSocketService.closeSocket();
       this.webSocketService.connectSocket(data.data.socket, data.data.token);
       if (this.subscription) {
         this.subscription.unsubscribe();
@@ -57,8 +60,11 @@ export class ConsolePage implements OnInit {
       event: 'send command',
       args: [command],
     };
+    // if () {
+
     this.webSocketService.sendMessage(JSON.stringify(message));
     this.console_command = '';
+    // }
   }
 
   public handleMessage(message: any): void {
@@ -71,8 +77,11 @@ export class ConsolePage implements OnInit {
       case 'stats':
         const stats = JSON.parse(message.args[0]);
         break;
-      case 'auth success':
       case 'status':
+        const status = message.args[0];
+        this.addSystemMessageToConsole(`Server marked as ${status}...`);
+        break;
+      case 'auth success':
       case 'token expired':
       case 'token expiring':
         // INFO: Handled in home.page.ts
@@ -85,19 +94,41 @@ export class ConsolePage implements OnInit {
 
   public addMessageToConsole(message: string): void {
     const span = this.renderer.createElement('span');
+    this.renderer.addClass(span, 'message');
     const text = this.renderer.createText(message);
     this.renderer.appendChild(span, text);
-    this.renderer.addClass(span, 'message');
     this.renderer.appendChild(this.console.nativeElement, span);
-    this.scrollBottom();
+    this.scrollBottomButton();
   }
 
-  public scrollBottom() {
+  public addSystemMessageToConsole(message: string): void {
+    const span = this.renderer.createElement('span');
+    const system_span = this.renderer.createElement('span');
+    this.renderer.addClass(span, 'message');
+    this.renderer.addClass(system_span, 'system-message');
+    const text = this.renderer.createText(message);
+    const system_text = this.renderer.createText('tapejara~ ');
+    this.renderer.appendChild(system_span, system_text);
+    this.renderer.appendChild(span, system_span);
+    this.renderer.appendChild(span, text);
+    this.renderer.appendChild(this.console.nativeElement, span);
+    this.scrollBottomButton();
+  }
+
+  public clearConsole(): void {
+    const elements = this.console.nativeElement.querySelectorAll('.message');
+    elements.forEach((element: any) => {
+      this.renderer.removeChild(this.console.nativeElement, element);
+    });
+  }
+
+  public scrollBottomButton() {
     this.console.nativeElement.scrollTo({
       top: this.console.nativeElement.scrollHeight,
       behavior: 'smooth',
     });
   }
+
   public canScrollDown(): boolean {
     return (
       this.console.nativeElement.scrollTop <

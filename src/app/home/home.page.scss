@@ -7,23 +7,41 @@
   border: 2px solid white;
   transition: background-color 0.3s ease;
 }
-#serverStatus.online {
-  background-color: var(--ion-color-success);
-  animation: pulse 2s infinite;
-}
 #serverStatus.offline {
-  background-color: var(--ion-color-danger);
+  background-color: #f44336;
+}
+#serverStatus.online {
+  background-color: #4caf50;
+}
+#serverStatus.stopping {
+  background-color: #ff9800;
+  animation: pulse-stopping 2s infinite;
+}
+#serverStatus.starting {
+  background-color: #ffeb3b;
+  animation: pulse-starting 2s infinite;
 }
 
-@keyframes pulse {
+@keyframes pulse-stopping {
   0% {
-    box-shadow: 0 0 0px 0px var(--ion-color-success);
+    box-shadow: 0 0 0px 0px #ff9800;
   }
   50% {
-    box-shadow: 0 0 5px 3px var(--ion-color-success);
+    box-shadow: 0 0 5px 3px #ff9800;
   }
   100% {
-    box-shadow: 0 0 0px 0px var(--ion-color-success);
+    box-shadow: 0 0 0px 0px #ff9800;
+  }
+}
+@keyframes pulse-starting {
+  0% {
+    box-shadow: 0 0 0px 0px #ffeb3b;
+  }
+  50% {
+    box-shadow: 0 0 5px 3px #ffeb3b;
+  }
+  100% {
+    box-shadow: 0 0 0px 0px #ffeb3b;
   }
 }
 

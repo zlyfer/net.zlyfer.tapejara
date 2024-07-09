@@ -24,7 +24,7 @@ export class WebSocketService {
     };
 
     this.wsSocket.onclose = (event: CloseEvent) => {
-      console.log(`WebSocket Closed: ${event.reason}`);
+      console.log(`WebSocket Closed.`);
     };
 
     this.wsSocket.onerror = (error: Event) => {

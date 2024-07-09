@@ -6,8 +6,8 @@
     <ion-title *ngIf="!contentLoading" (click)="openChangeServerModal()">
       <span id="selectServer">
         <!-- class equals serverStatus -->
-        <span id="serverStatus" [class.online]="serverStatus == 'running'"
-          [class.offline]="serverStatus == 'offline'"></span>
+        <span id="serverStatus" [class.online]="serverStatus == 'running'" [class.offline]="serverStatus == 'offline'"
+          [class.stopping]="serverStatus == 'stopping'" [class.starting]="serverStatus == 'starting'"></span>
         {{ getCurrentServer().attributes.name }}
       </span>
     </ion-title>
